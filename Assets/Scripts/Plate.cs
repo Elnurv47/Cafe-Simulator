@@ -8,7 +8,7 @@ public class Plate : StorableItem, IItemHolder, ITaskObject
 
     public bool CanPut(StorableItem storableItem)
     {
-        return true;
+        return _item != null && !(storableItem is Plate);
     }
 
     public void Put(StorableItem item)

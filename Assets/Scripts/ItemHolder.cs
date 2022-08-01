@@ -1,12 +1,6 @@
 ﻿using TaskSystem;
 using UnityEngine;
 
-public interface IItemHolder
-{
-    bool CanPut(StorableItem item);
-    void Put(StorableItem item);
-}
-
 public class ItemHolder : MonoBehaviour, IItemHolder, ITaskObject
 {
     private Plate _plate;
@@ -15,7 +9,7 @@ public class ItemHolder : MonoBehaviour, IItemHolder, ITaskObject
 
     public bool CanPut(StorableItem item)
     {
-        return true;
+        return _plate != null && item is Plate;
     }
 
     public void Put(StorableItem storableItem)
