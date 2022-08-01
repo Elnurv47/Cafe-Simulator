@@ -3,26 +3,30 @@ using UnityEngine;
 
 public class Crate : MonoBehaviour, IContainer, ITaskObject
 {
-    public int ID;
-
-    [SerializeField] private Food _food;
-    [SerializeField] private int _foodAmount = 1000;
+    [SerializeField] private StorableItem _storableItem;
+    [SerializeField] private int _storableItemAmount = 1000;
     [SerializeField] private Transform _interactionPoint;
 
     public bool ContainsFood()
     {
-        return _foodAmount > 0;
+        return _storableItemAmount > 0;
     }
 
     public IConsumable GetConsumable()
     {
-        _foodAmount--;
-        return Instantiate(_food);
+        _storableItemAmount--;
+        return Instantiate(_storableItem);
+    }
+
+    public StorableItem GetStorableItem()
+    {
+        _storableItemAmount--;
+        return Instantiate(_storableItem);
     }
 
     public Task GetTask()
     {
-        Task task = new TakeFoodFromContainerTask(_interactionPoint.position, this);
+        Task task = new TakeItemFromContainerTask(_interactionPoint.position, this);
         return task;
     }
 }

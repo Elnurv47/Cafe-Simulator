@@ -5,11 +5,11 @@ namespace TaskSystem
 {
     public class PutItemToContainerTask : Task
     {
-        private IFoodHolder _foodHolder;
+        private IItemHolder _itemHolder;
 
-        public PutItemToContainerTask(Vector3 targetPosition, IFoodHolder foodHolder) : base(targetPosition)
+        public PutItemToContainerTask(Vector3 targetPosition, IItemHolder itemHolder) : base(targetPosition)
         {
-            _foodHolder = foodHolder;
+            _itemHolder = itemHolder;
         }
 
         public override bool CanExecute()
@@ -23,12 +23,15 @@ namespace TaskSystem
             {
                 Debug.Log("Arrived at position: " + TargetPosition);
 
-                IConsumable consumable = executor.GetHoldConsumable();
-                _foodHolder.PutItem(consumable);
+                StorableItem storableItem = executor.GetHoldItem();
+                if (_itemHolder.CanPut(storableItem))
+                {
+                    _itemHolder.Put(storableItem);
+                }
 
+                onFinished();
             });
-            
-            onFinished();
+
         }
     }
 }

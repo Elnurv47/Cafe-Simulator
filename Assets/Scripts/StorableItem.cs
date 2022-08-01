@@ -1,7 +1,7 @@
 using TaskSystem;
 using UnityEngine;
 
-public class Food : MonoBehaviour, IConsumable
+public class StorableItem : MonoBehaviour, IConsumable
 {
     [SerializeField] private Sprite _sprite;
 

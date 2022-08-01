@@ -3,6 +3,6 @@
     public interface IContainer
     {
         bool ContainsFood();
-        IConsumable GetConsumable();
+        StorableItem GetStorableItem();
     }
 }

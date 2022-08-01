@@ -1,29 +1,25 @@
+using TaskSystem;
 using UnityEngine;
 
-namespace TaskSystem
+public class Plate : StorableItem, IItemHolder, ITaskObject
 {
-    public class Plate : MonoBehaviour, IFoodHolder, ITaskObject
+    private StorableItem _item;
+    [SerializeField] private Transform _itemSpawnTransform;
+
+    public bool CanPut(StorableItem storableItem)
     {
-        private IConsumable _holdConsumable;
+        return true;
+    }
 
-        public int ID;
+    public void Put(StorableItem item)
+    {
+        _item = item;
+        _item.transform.position = _itemSpawnTransform.position;
+        _item.transform.SetParent(_itemSpawnTransform);
+    }
 
-        [SerializeField] private Transform _frontInteractionPoint;
-        [SerializeField] private Transform _backInteractionPoint;
-        [SerializeField] private Transform _consumableSpawnPoint;
-
-        public void PutItem(IConsumable consumable)
-        {
-            _holdConsumable = consumable;
-            GameObject consumableObject = _holdConsumable.GetObject();
-            consumableObject.transform.position = _consumableSpawnPoint.position;
-            consumableObject.transform.SetParent(_consumableSpawnPoint);
-        }
-
-        public Task GetTask()
-        {
-            Task task = new PutItemToContainerTask(_frontInteractionPoint.position, this);
-            return task;
-        }
+    public Task GetTask()
+    {
+        return new PutItemToContainerTask(_itemSpawnTransform.position, this);
     }
 }

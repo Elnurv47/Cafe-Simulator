@@ -3,11 +3,11 @@ using UnityEngine;
 
 namespace TaskSystem
 {
-    public class TakeFoodFromContainerTask : Task
+    public class TakeItemFromContainerTask : Task
     {
         private IContainer _container;
 
-        public TakeFoodFromContainerTask(Vector3 targetPosition, IContainer container) : base(targetPosition)
+        public TakeItemFromContainerTask(Vector3 targetPosition, IContainer container) : base(targetPosition)
         {
             _container = container;
         }
@@ -25,8 +25,8 @@ namespace TaskSystem
 
                 if (_container.ContainsFood())
                 {
-                    IConsumable consumable = _container.GetConsumable();
-                    executor.HoldItem(consumable);
+                    StorableItem storableItem = _container.GetStorableItem();
+                    executor.HoldItem(storableItem);
                 }
 
                 onFinished();

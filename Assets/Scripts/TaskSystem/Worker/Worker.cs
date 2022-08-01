@@ -12,6 +12,8 @@ namespace TaskSystem
         private IConsumable _holdConsumable;
         private WorkerMovement _movement;
 
+        private StorableItem _holdItem;
+
         [SerializeField] private Transform _holder;
 
         public Vector3 Position { get => transform.position; set => transform.position = value; }
@@ -28,19 +30,19 @@ namespace TaskSystem
             StartCoroutine(_movement.MoveToCoroutine(targetPosition, onArrived));
         }
 
-        public void HoldItem(IConsumable consumable)
+        public void HoldItem(StorableItem storableItem)
         {
-            var consumableObjectTransform = consumable.GetObject().transform;
-            consumableObjectTransform.position = _holder.transform.position;
-            consumableObjectTransform.SetParent(_holder);
-            _holdConsumable = consumable;
+            var holdItemTransform = storableItem.GetObject().transform;
+            holdItemTransform.position = _holder.transform.position;
+            holdItemTransform.SetParent(_holder);
+            _holdItem = storableItem;
         }
 
-        public IConsumable GetHoldConsumable()
+        public StorableItem GetHoldItem()
         {
-            IConsumable holdConsumable = _holdConsumable;
-            _holdConsumable = null;
-            return holdConsumable;
+            StorableItem storableItem = _holdItem;
+            _holdItem = null;
+            return storableItem;
         }
 
         public void AddTask(Task task)
