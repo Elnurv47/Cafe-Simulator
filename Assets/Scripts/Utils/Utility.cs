@@ -32,11 +32,11 @@ namespace Utils
             return textMesh;
         }
 
-        public static Vector3 GetMouseWorldPosition3D()
+        public static Vector3 GetMouseWorldPosition3D(LayerMask acceptedLayerMask = default)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, float.PositiveInfinity))
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, float.PositiveInfinity, acceptedLayerMask))
             {
                 return hitInfo.point;
             }

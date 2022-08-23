@@ -1,5 +1,6 @@
 using Utils;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace TaskSystem
 {
@@ -18,7 +19,7 @@ namespace TaskSystem
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            /*if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 GameObject clickedObject = Utility.GetClickedObject3D();
 
@@ -33,7 +34,7 @@ namespace TaskSystem
                 {
                     _selectedWorker.AddTask(taskObject.GetTask());
                 }
-            }
+            }*/
         }
     }
 }

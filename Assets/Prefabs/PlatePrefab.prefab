@@ -120,8 +120,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8944190806439699598}
-  - component: {fileID: 250737254}
   - component: {fileID: 1047198255}
+  - component: {fileID: 250737254}
   - component: {fileID: 1065604235}
   m_Layer: 0
   m_Name: PlatePrefab
@@ -146,6 +146,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1047198255
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8605242589741284916}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.4384232, y: 0.27586508, z: 2.5254974}
+  m_Center: {x: -0.08615494, y: 0.042042494, z: -0.002368927}
 --- !u!114 &250737254
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,19 +173,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sprite: {fileID: 0}
   _itemSpawnTransform: {fileID: 1680792918}
---- !u!65 &1047198255
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8605242589741284916}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.4384232, y: 0.27586508, z: 2.5254974}
-  m_Center: {x: -0.08615494, y: 0.042042494, z: -0.002368927}
 --- !u!114 &1065604235
 MonoBehaviour:
   m_ObjectHideFlags: 0

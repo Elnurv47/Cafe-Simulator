@@ -9,7 +9,7 @@ public class ItemHolder : MonoBehaviour, IItemHolder, ITaskObject
 
     public bool CanPut(StorableItem item)
     {
-        return _plate != null && item is Plate;
+        return _plate == null && item is Plate;
     }
 
     public void Put(StorableItem storableItem)
