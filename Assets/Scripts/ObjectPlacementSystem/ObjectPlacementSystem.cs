@@ -10,26 +10,19 @@ public class ObjectPlacementSystem : MonoBehaviour
 
     private void Update()
     {
-        /*if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 clickPosition = Utility.GetMouseWorldPosition3D();
-            Debug.Log("Click Position: " + clickPosition);
-            Node node = _objectPlacementGrid.GetNode(clickPosition);
-            node.gameObject.GetComponent<Renderer>().material.color = Color.red;
-
-        }*/
-
         if (_spawnedObject == null) return;
 
         Vector3 mousePosition = Utility.GetMouseWorldPosition3D(_objectPlacementNodeLayerMask);
-
-        Debug.Log(mousePosition);
 
         _spawnedObject.transform.position = new Vector3(mousePosition.x, 2f, mousePosition.z);
 
         if (Input.GetMouseButtonDown(0))
         {
-            _spawnedObject.transform.position = _objectPlacementGrid.GetNodeCenter(mousePosition) + Vector3.up * 2f;
+            ObjectPlacementSystemNode clickedNode = _objectPlacementGrid.GetNode(mousePosition) as ObjectPlacementSystemNode;
+            if (!clickedNode.IsEmpty) return;
+
+            _spawnedObject.transform.position = _objectPlacementGrid.GetNodeOrigin(mousePosition) + Vector3.up * 2f;
+            clickedNode.PlacedObject = _spawnedObject;
             _spawnedObject = null;
         }
     }

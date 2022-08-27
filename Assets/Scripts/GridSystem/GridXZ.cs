@@ -9,13 +9,10 @@ namespace GridSystem
     public class GridXZ : MonoBehaviour, IGrid
     {
         private bool _activeSelf;
-        public bool ActiveSelf { get => _activeSelf; }
 
         [SerializeField] private int _width;
         [SerializeField] private int _length;
         [SerializeField] private float _cellSize;
-
-        public float CellSize { get => _cellSize; }
 
         [SerializeField] private Vector3 _origin;
         [SerializeField] private bool _isDebugEnabled;
@@ -23,11 +20,13 @@ namespace GridSystem
         [SerializeField] private Transform _nodeContainer;
 
         private Node[,] _nodes;
-
         private TextMesh[,] _nodesDebugArray;
 
+        public bool ActiveSelf { get => _activeSelf; }
         public int Width { get => _width; }
         public int Length { get => _length; }
+        public float CellSize { get => _cellSize; }
+
 
         public event Action OnGridActivated;
         public event Action OnGridDeactivated;
@@ -53,12 +52,12 @@ namespace GridSystem
                         spawnedNodeObject.transform.localScale = new Vector3(_cellSize, _cellSize, 0.001f);
                         Node spawnedNode = spawnedNodeObject.GetComponent<Node>();
 
-                        SetNode(gridIndex, spawnedNode);
+                        SetNode(spawnedNode, gridIndex);
 
                         _nodesDebugArray[x, z] = Utility.CreateWorldText(
                             _nodes[x, z].ToString(),
                             fontSize: 24,
-                            position: GetNodePosition(new GridIndex(x, 0, z)) + new Vector3(0.5f, 0, 0.5f) * _cellSize,
+                            position: GetNodeOrigin(new GridIndex(x, 0, z)) + new Vector3(0.5f, 0, 0.5f) * _cellSize,
                             rotation: Quaternion.Euler(90, 0, 0),
                             localScale: Vector3.one * 0.2f,
                             color: Color.black
@@ -75,7 +74,7 @@ namespace GridSystem
             #endregion
         }
 
-        public Vector3 GetNodePosition(GridIndex gridIndex)
+        public Vector3 GetNodeOrigin(GridIndex gridIndex)
         {
             if (!IsValidCoordinate(gridIndex))
             {
@@ -83,6 +82,16 @@ namespace GridSystem
             }
 
             return gridIndex.ToVector3() * _cellSize + _origin;
+        }
+
+        public Vector3 GetNodeOrigin(Vector3 worldPosition)
+        {
+            return GetNodeOrigin(GetGridIndex(worldPosition));
+        }
+
+        public Vector3 GetNodeOrigin(Node node)
+        {
+            return GetNodeOrigin(node.GridIndex);
         }
 
         private GridIndex ClampToGrid(GridIndex gridIndex)
@@ -120,7 +129,16 @@ namespace GridSystem
         public void SetNode(Vector3 cellWorldPosition, Node node)
         {
             GridIndex point = GetGridIndex(cellWorldPosition);
-            SetNode(point, node);
+            SetNode(node, point);
+        }
+
+        private void SetNode(Node node, GridIndex gridIndex)
+        {
+            if (!IsValidCoordinate(gridIndex)) return;
+
+            node.Initialize(gridIndex);
+
+            _nodes[gridIndex.X, gridIndex.Z] = node;
         }
 
         private GridIndex GetGridIndex(Vector3 cellWorldPosition)
@@ -144,13 +162,6 @@ namespace GridSystem
         {
             GridIndex gridIndex = GetGridIndex(cellWorldPosition);
             return IsValidCoordinate(gridIndex) ? _nodes[gridIndex.X, gridIndex.Z] : default;
-        }
-
-        private void SetNode(GridIndex gridIndex, Node node)
-        {
-            if (!IsValidCoordinate(gridIndex)) return;
-            node.GridIndex = gridIndex;
-            _nodes[gridIndex.X, gridIndex.Z] = node;
         }
 
         private bool IsValidCoordinate(GridIndex gridIndex)
