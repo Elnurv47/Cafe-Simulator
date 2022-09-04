@@ -55,7 +55,6 @@ public class Pathfinding : MonoBehaviour
 
             if (currentNode == targetNode)
             {
-                //return RetracePath(startNode, targetNode);
                 _testPath = RetracePath(startNode, targetNode);
                 return _testPath;
             }

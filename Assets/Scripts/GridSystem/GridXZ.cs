@@ -49,7 +49,7 @@ namespace GridSystem
                         GridIndex gridIndex = new GridIndex(x, 0, z);
 
                         GameObject spawnedNodeObject = Instantiate(_nodePrefab, GetNodeCenter(gridIndex), Quaternion.Euler(90, 0, 0), _nodeContainer);
-                        spawnedNodeObject.transform.localScale = new Vector3(_cellSize, _cellSize, 0.001f);
+                        spawnedNodeObject.transform.localScale = new Vector3(_cellSize - 0.1f, _cellSize - 0.1f, 0.001f);
                         Node spawnedNode = spawnedNodeObject.GetComponent<Node>();
 
                         SetNode(spawnedNode, gridIndex);

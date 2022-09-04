@@ -10,9 +10,11 @@ public class PathNode : Node
     public int HCost { get; set; }
     public int FCost { get => GCost + HCost; }
 
+    [SerializeField] private LayerMask _ignoreLayer;
+
     private void Start()
     {
-        Collider[] colliders = Physics.OverlapBox(transform.position, new Vector3(1.8f, 0, 1.8f) / 2);
+        Collider[] colliders = Physics.OverlapBox(transform.position, new Vector3(1.8f, 0, 1.8f) / 2, Quaternion.identity, ~_ignoreLayer);
         Walkable = colliders.Length == 0;
     }
 

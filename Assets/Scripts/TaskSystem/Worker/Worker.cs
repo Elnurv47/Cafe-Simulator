@@ -10,7 +10,7 @@ namespace TaskSystem
         private WorkerVisual _workerVisual;
         private Queue<Task> _tasks;
         private IConsumable _holdConsumable;
-        private WorkerMovement _movement;
+        private Movement _movement;
 
         private StorableItem _holdItem;
 
@@ -22,12 +22,11 @@ namespace TaskSystem
         {
             _workerVisual = new WorkerVisual(this);
             _tasks = new Queue<Task>();
-            _movement = new WorkerMovement(this);
         }
 
         public void MoveTo(Vector3 targetPosition, Action onArrived)
         {
-            StartCoroutine(_movement.MoveToCoroutine(targetPosition, onArrived));
+            StartCoroutine(Movement.MoveToCoroutine(gameObject, targetPosition, onArrived));
         }
 
         public void HoldItem(StorableItem storableItem)

@@ -1,12 +1,16 @@
 using Utils;
-using GridSystem;   
+using System;
+using GridSystem;
 using UnityEngine;
 
 public class ObjectPlacementSystem : MonoBehaviour
 {
     private GameObject _spawnedObject;
+
     [SerializeField] private GridXZ _objectPlacementGrid;
     [SerializeField] private LayerMask _objectPlacementNodeLayerMask;
+
+    public static Action<IPlaceableObject> OnObjectPlaced;
 
     private void Update()
     {
@@ -19,11 +23,22 @@ public class ObjectPlacementSystem : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             ObjectPlacementSystemNode clickedNode = _objectPlacementGrid.GetNode(mousePosition) as ObjectPlacementSystemNode;
+
+            IPlaceableObject objectToPlace = _spawnedObject.GetComponent<IPlaceableObject>();
+
+            if (objectToPlace.CanPlace(_objectPlacementGrid, clickedNode))
+            {
+                objectToPlace.MoveTo(_objectPlacementGrid.GetNodeCenter(mousePosition) + Vector3.up * 2f);
+                clickedNode.PlacedObject = objectToPlace;
+                _spawnedObject = null;
+            }
+
+            /*ObjectPlacementSystemNode clickedNode = _objectPlacementGrid.GetNode(mousePosition) as ObjectPlacementSystemNode;
             if (!clickedNode.IsEmpty) return;
 
-            _spawnedObject.transform.position = _objectPlacementGrid.GetNodeOrigin(mousePosition) + Vector3.up * 2f;
+            _spawnedObject.transform.position = _objectPlacementGrid.GetNodeCenter(mousePosition) + Vector3.up * 2f;
             clickedNode.PlacedObject = _spawnedObject;
-            _spawnedObject = null;
+            _spawnedObject = null;*/
         }
     }
 
@@ -31,5 +46,6 @@ public class ObjectPlacementSystem : MonoBehaviour
     {
         Vector3 mousePosition = Utility.GetMouseWorldPosition3D();
         _spawnedObject = Instantiate(placeObject, mousePosition, Quaternion.identity);
+        OnObjectPlaced?.Invoke(_spawnedObject.GetComponent<IPlaceableObject>());
     }
 }
