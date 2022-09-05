@@ -7,6 +7,7 @@ namespace TaskSystem
     public class Movement
     {
         private static int _speed = 30;
+        private static int _rotationSpeed = 500;
 
         public static IEnumerator MoveToCoroutine(GameObject objectToMove, Vector3 targetPosition, Action onArrived)
         {
@@ -18,6 +19,11 @@ namespace TaskSystem
                 {
                     Vector3 newPosition = new Vector3(node.Position.x, objectToMove.transform.position.y, node.Position.z);
                     objectToMove.transform.position = Vector3.MoveTowards(objectToMove.transform.position, newPosition, Time.deltaTime * _speed);
+
+                    Vector3 movementDirection = newPosition - objectToMove.transform.position;
+                    Quaternion toRotation = Quaternion.LookRotation(movementDirection, Vector3.up);
+                    objectToMove.transform.rotation = Quaternion.RotateTowards(objectToMove.transform.rotation, toRotation, _rotationSpeed * Time.deltaTime);
+
                     yield return Time.deltaTime;
                 }
             }

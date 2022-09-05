@@ -7,6 +7,7 @@ public class CustomerSpawner : MonoBehaviour
     [SerializeField] private Button _spawnCustomerButton;
     [SerializeField] private Customer _customerPrefab;
     [SerializeField] private Vector3 _customerSpawnPosition;
+    [SerializeField] private Vector3 _customerSpawnRotation;
 
     private void Start()
     {
@@ -15,7 +16,7 @@ public class CustomerSpawner : MonoBehaviour
 
     private void SpawnCustomer()
     {
-        Customer spawnedCustomer = Instantiate(_customerPrefab, _customerSpawnPosition, Quaternion.identity);
+        Customer spawnedCustomer = Instantiate(_customerPrefab, _customerSpawnPosition, Quaternion.Euler(_customerSpawnRotation));
         spawnedCustomer.GoToCafe();
     }
 }

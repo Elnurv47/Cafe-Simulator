@@ -5,6 +5,7 @@ using UnityEngine;
 public class Customer : MonoBehaviour
 {
     private Table _seatedTable;
+
     public Table SeatedTable { get => _seatedTable; private set => _seatedTable = value; }
 
     public void GoToCafe()
@@ -15,18 +16,20 @@ public class Customer : MonoBehaviour
 
             if (availableChair == null) return;
 
+            availableChair.SeatedCustomer = this;
+
             MoveTo(gameObject, availableChair.Position, () =>
             {
-                Sit(availableChair);
+                Seat(availableChair);
                 Order();
             });
         });
     }
 
-    private void Sit(Chair chair)
+    private void Seat(Chair chair)
     {
         transform.position = chair.SittingPosition;
-        chair.SeatedCustomer = this;
+        transform.forward = chair.ConnectedTable.transform.position - transform.position;
     }
 
     private void Order()
