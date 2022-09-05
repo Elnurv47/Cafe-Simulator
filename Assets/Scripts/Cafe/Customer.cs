@@ -1,8 +1,6 @@
-using System;
-using TaskSystem;
 using UnityEngine;
 
-public class Customer : MonoBehaviour
+public class Customer : Character
 {
     private Table _seatedTable;
 
@@ -10,7 +8,7 @@ public class Customer : MonoBehaviour
 
     public void GoToCafe()
     {
-        MoveTo(gameObject, Cafe.EntrancePosition, () =>
+        MoveTo(Cafe.EntrancePosition, () =>
         {
             Chair availableChair = Cafe.FindAvailableChair();
 
@@ -18,7 +16,7 @@ public class Customer : MonoBehaviour
 
             availableChair.SeatedCustomer = this;
 
-            MoveTo(gameObject, availableChair.Position, () =>
+            MoveTo(availableChair.Position, () =>
             {
                 Seat(availableChair);
                 Order();
@@ -35,10 +33,5 @@ public class Customer : MonoBehaviour
     private void Order()
     {
         Debug.Log("Ordering");
-    }
-
-    private void MoveTo(GameObject gameObject, Vector3 position, Action onArrived)
-    {
-        StartCoroutine(Movement.MoveToCoroutine(gameObject, position, onArrived));
     }
 }

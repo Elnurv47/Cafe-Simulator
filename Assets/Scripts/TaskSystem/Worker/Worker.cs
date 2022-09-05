@@ -4,13 +4,12 @@ using System.Collections.Generic;
 
 namespace TaskSystem
 {
-    public class Worker : MonoBehaviour
+    public class Worker : Character
     {
         private bool _isExecutingTask;
         private WorkerVisual _workerVisual;
         private Queue<Task> _tasks;
         private IConsumable _holdConsumable;
-        private Movement _movement;
 
         private StorableItem _holdItem;
 
@@ -22,11 +21,6 @@ namespace TaskSystem
         {
             _workerVisual = new WorkerVisual(this);
             _tasks = new Queue<Task>();
-        }
-
-        public void MoveTo(Vector3 targetPosition, Action onArrived)
-        {
-            StartCoroutine(Movement.MoveToCoroutine(gameObject, targetPosition, onArrived));
         }
 
         public void HoldItem(StorableItem storableItem)
