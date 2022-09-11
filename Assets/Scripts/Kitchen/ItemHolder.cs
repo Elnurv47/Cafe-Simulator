@@ -6,9 +6,11 @@ public class ItemHolder : MonoBehaviour, IItemHolder, ITaskObject
     private Plate _plate;
 
     [SerializeField] private Transform _platePositionTransform;
+    [SerializeField] private Transform _interactionPoint;
 
     public bool CanPut(StorableItem item)
     {
+        Debug.Log(item);
         return _plate == null && item is Plate;
     }
 
@@ -28,6 +30,6 @@ public class ItemHolder : MonoBehaviour, IItemHolder, ITaskObject
 
     public Task GetTask()
     {
-        return new PutItemToContainerTask(_platePositionTransform.position, this);
+        return new PutItemToContainerTask(_interactionPoint.position, this);
     }
 }

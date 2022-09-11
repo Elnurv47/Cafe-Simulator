@@ -3,19 +3,20 @@ using UnityEngine;
 
 public class Plate : StorableItem, IItemHolder, ITaskObject
 {
-    private StorableItem _item;
+    private StorableItem _storedItem;
+
     [SerializeField] private Transform _itemSpawnTransform;
 
     public bool CanPut(StorableItem storableItem)
     {
-        return _item == null && !(storableItem is Plate);
+        return _storedItem == null && !(storableItem is Plate);
     }
 
-    public void Put(StorableItem item)
+    public void Put(StorableItem storableItem)
     {
-        _item = item;
-        _item.transform.position = _itemSpawnTransform.position;
-        _item.transform.SetParent(_itemSpawnTransform);
+        _storedItem = storableItem;
+        _storedItem.transform.position = _itemSpawnTransform.position;
+        _storedItem.transform.SetParent(_itemSpawnTransform);
     }
 
     public Task GetTask()

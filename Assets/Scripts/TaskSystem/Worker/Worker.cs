@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -9,9 +8,8 @@ namespace TaskSystem
         private bool _isExecutingTask;
         private WorkerVisual _workerVisual;
         private Queue<Task> _tasks;
-        private IConsumable _holdConsumable;
 
-        private StorableItem _holdItem;
+        private Plate _holdPlate;
 
         [SerializeField] private Transform _holder;
 
@@ -25,17 +23,24 @@ namespace TaskSystem
 
         public void HoldItem(StorableItem storableItem)
         {
-            var holdItemTransform = storableItem.GetObject().transform;
-            holdItemTransform.position = _holder.transform.position;
-            holdItemTransform.SetParent(_holder);
-            _holdItem = storableItem;
+            if (storableItem is Plate)
+            {
+                _holdPlate = storableItem as Plate;
+                var holdItemTransform = storableItem.GetObject().transform;
+                holdItemTransform.position = _holder.transform.position;
+                holdItemTransform.SetParent(_holder);
+            }
+            else
+            {
+                if (_holdPlate.CanPut(storableItem)) _holdPlate.Put(storableItem);
+            }
         }
 
-        public StorableItem GetHoldItem()
+        public Plate GetHoldPlate()
         {
-            StorableItem storableItem = _holdItem;
-            _holdItem = null;
-            return storableItem;
+            Plate plate = _holdPlate;
+            _holdPlate = null;
+            return plate;
         }
 
         public void AddTask(Task task)

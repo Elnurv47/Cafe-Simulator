@@ -19,11 +19,13 @@ namespace TaskSystem
 
         private void Update()
         {
-            /*if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 GameObject clickedObject = Utility.GetClickedObject3D();
 
-                if (clickedObject.TryGetComponent(out Worker worker))
+                Worker worker = clickedObject.GetComponentInParent<Worker>();
+
+                if (worker != null)
                 {
                     _selectedWorker = worker;
                     _selectedWorker.ChangeColorTo(Color.green);
@@ -34,7 +36,7 @@ namespace TaskSystem
                 {
                     _selectedWorker.AddTask(taskObject.GetTask());
                 }
-            }*/
+            }
         }
     }
 }

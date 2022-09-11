@@ -23,7 +23,8 @@ namespace TaskSystem
             {
                 Debug.Log("Arrived at position: " + TargetPosition);
 
-                StorableItem storableItem = executor.GetHoldItem();
+                StorableItem storableItem = executor.GetHoldPlate();
+
                 if (_itemHolder.CanPut(storableItem))
                 {
                     _itemHolder.Put(storableItem);

@@ -1,17 +1,18 @@
-using TaskSystem;
 using UnityEngine;
 
-public class StorableItem : MonoBehaviour, IConsumable
+public enum FoodType
+{
+    Bread,
+    Apple,
+}
+
+public class StorableItem : MonoBehaviour
 {
     [SerializeField] private Sprite _sprite;
+    public Sprite Sprite { get => _sprite; }
 
     public GameObject GetObject()
     {
         return gameObject;
-    }
-
-    public Sprite GetSprite()
-    {
-        return _sprite;
     }
 }

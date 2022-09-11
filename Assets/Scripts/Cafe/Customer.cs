@@ -28,6 +28,7 @@ public class Customer : Character
     {
         transform.position = chair.SittingPosition;
         transform.forward = chair.ConnectedTable.transform.position - transform.position;
+        _seatedTable = chair.ConnectedTable;
     }
 
     private void Order()

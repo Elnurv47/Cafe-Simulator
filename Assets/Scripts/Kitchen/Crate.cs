@@ -12,12 +12,6 @@ public class Crate : MonoBehaviour, IContainer, ITaskObject
         return _storableItemAmount > 0;
     }
 
-    public IConsumable GetConsumable()
-    {
-        _storableItemAmount--;
-        return Instantiate(_storableItem);
-    }
-
     public StorableItem GetStorableItem()
     {
         _storableItemAmount--;

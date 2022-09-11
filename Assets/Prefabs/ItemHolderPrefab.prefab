@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5178666620874733542}
   - component: {fileID: 5178666620874733537}
   - component: {fileID: 1224172277}
+  - component: {fileID: 1030316103}
   m_Layer: 0
   m_Name: ItemHolderPrefab
   m_TagString: Untagged
@@ -63,6 +64,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _platePositionTransform: {fileID: 5178666622414859157}
+  _interactionPoint: {fileID: 5178666622341486884}
+--- !u!114 &1030316103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5178666620874733539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6e07904814ec8847931d001d5aebb9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hoverColor: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 1}
+  _renderer: {fileID: 5178666621598602945}
 --- !u!1 &5178666621404483177
 GameObject:
   m_ObjectHideFlags: 0
