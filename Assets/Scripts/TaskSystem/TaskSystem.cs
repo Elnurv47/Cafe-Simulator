@@ -23,7 +23,7 @@ namespace TaskSystem
             {
                 GameObject clickedObject = Utility.GetClickedObject3D();
 
-                Worker worker = clickedObject.GetComponentInParent<Worker>();
+                Worker worker = clickedObject.GetComponent<Worker>();
 
                 if (worker != null)
                 {

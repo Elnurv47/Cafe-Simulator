@@ -1,10 +1,25 @@
-using TaskSystem;
 using UnityEngine;
 
 public class OrderSystem : MonoBehaviour
 {
-    public static Order CreateOrder(IFood orderedFood)
+    public static OrderSystem Instance { get; private set; }
+
+    private void Awake()
     {
-        throw new System.NotImplementedException();
+        Instance = this;
+    }
+
+    [SerializeField] private Food[] _foodList;
+
+    public Order CreateRandomOrder()
+    {
+        Food randomOrderedFood = GetRandomFood();
+        return new Order(randomOrderedFood);
+    }
+
+    private Food GetRandomFood()
+    {
+        int randomIndex = Random.Range(0, _foodList.Length);
+        return _foodList[randomIndex];
     }
 }

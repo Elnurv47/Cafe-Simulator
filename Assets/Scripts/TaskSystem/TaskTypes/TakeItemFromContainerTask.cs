@@ -23,7 +23,7 @@ namespace TaskSystem
             {
                 Debug.Log("Arrived at position: " + TargetPosition);
 
-                if (_container.ContainsFood())
+                if (_container.Contains())
                 {
                     StorableItem storableItem = _container.GetStorableItem();
                     executor.HoldItem(storableItem);

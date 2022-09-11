@@ -2,7 +2,7 @@
 {
     public interface IContainer
     {
-        bool ContainsFood();
+        bool Contains();
         StorableItem GetStorableItem();
     }
 }

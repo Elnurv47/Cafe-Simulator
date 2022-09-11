@@ -10,7 +10,6 @@ public class ItemHolder : MonoBehaviour, IItemHolder, ITaskObject
 
     public bool CanPut(StorableItem item)
     {
-        Debug.Log(item);
         return _plate == null && item is Plate;
     }
 

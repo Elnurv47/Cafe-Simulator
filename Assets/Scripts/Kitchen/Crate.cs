@@ -7,7 +7,7 @@ public class Crate : MonoBehaviour, IContainer, ITaskObject
     [SerializeField] private int _storableItemAmount = 1000;
     [SerializeField] private Transform _interactionPoint;
 
-    public bool ContainsFood()
+    public bool Contains()
     {
         return _storableItemAmount > 0;
     }
